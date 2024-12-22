@@ -4,7 +4,7 @@
 #
 
 function saveOptimization(optimization::Optimization, filepath::String)
-    dict = Dict{String, Any}()
+    dict = Dict{String,Any}()
     dict["minimizers"] = optimization.minimizers
     dict["minimums"] = optimization.minimums
     JLD2.save(filepath, dict)

@@ -29,7 +29,7 @@ function train!(hyper_params, ressource, ind)
     Random.seed!(1234)
 
     # we interpret `ressource` as number of training steps here
-    trainSteps = max(round(Int, ressource), 1) 
+    trainSteps = max(round(Int, ressource), 1)
 
     # unpack hyperparameters
     eta, beta1, beta2 = hyper_params
@@ -37,9 +37,8 @@ function train!(hyper_params, ressource, ind)
     @info "--------------\nStarting run $(ind) with parameters: $(hyper_params) and ressource $(ressource) doing $(trainSteps) step(s)."
 
     # this is just an example, not a good topology!
-    net = Chain(Dense(1,16, tanh),
-                Dense(16, 1, tanh))
-    
+    net = Chain(Dense(1, 16, tanh), Dense(16, 1, tanh))
+
     # get parameters from `net`
     params = Flux.params(net)
 
@@ -47,8 +46,8 @@ function train!(hyper_params, ressource, ind)
     optim = Adam(eta, (beta1, beta2))
 
     # train with steps, defined by the allocated ressource
-    Flux.train!(() -> loss(net), params, Iterators.repeated((), trainSteps), optim) 
-    
+    Flux.train!(() -> loss(net), params, Iterators.repeated((), trainSteps), optim)
+
     # return the final loss after training
     # better would be a testing loss here ;-)
     return loss(net)
